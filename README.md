@@ -25,6 +25,6 @@ Sau khi cài đặt xong PHP Manager, tiến hành khởi động lại hệ th�
 
 Sau khi hệ thống đã khởi động lại, truy cập vào IIS và kiểm tra trạng thái của PHP Manager
 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![alt text](https://github.com/dzung042/iis-php-mysql/blob/master/image/IMS-11-600x344.png)
 
 Sau khi hệ thống đã khởi động lại, truy cập vào IIS và kiểm tra trạng thái của PHP Manager
