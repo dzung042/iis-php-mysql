@@ -44,3 +44,8 @@ Cài đặt PHP 5.6
       Tại đây ta download phiên bản 5.6.39
       IMS-42.png
       ![alt text](https://github.com/dzung042/iis-php-mysql/blob/master/image/IMS-42.png)
+edit header iis
+Run this from command line to update Machine/webroot/apphost config
+%windir%\system32\inetsrv\appcmd.exe set config -section:system.webServer/proxy -preserveHostHeader:true /commit:apphost
+hoặc thay đổi trong
+%windir%\system32\inetsrv\config\applicationhost.config
