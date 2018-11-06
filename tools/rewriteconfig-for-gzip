@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+		<rewrite>
+		  <rules>
+		  <rule name="ReverseProxyInboundRule1" stopProcessing="true">
+                    <match url="(.*)" />
+                    <action type="Rewrite" url="http://localhost:81/{R:1}" />
+                </rule>
+			<rule name="wordpress" patternSyntax="Wildcard">
+			  <match url="*" />
+			<conditions>
+			  <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+			  <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+			</conditions>
+			<serverVariables>
+			  <set name="HTTP_X_ORIGINAL_ACCEPT_ENCODING" value="{HTTP_ACCEPT_ENCODING}" />
+			  <set name="HTTP_ACCEPT_ENCODING" value="" />
+			</serverVariables>
+			  <action type="Rewrite" url="index.php" />
+			 </rule>
+
+                <rule name="ReverseProxyInboundRule2" enabled="true" stopProcessing="true">
+                    <match url="(.*)" />
+                    <action type="Rewrite" url="http:/trieuphu.biz/{R:1}" />
+                    <serverVariables>
+                        <set name="ORIGINAL_HOST20" value="{HTTP_HOST}" />
+                        <set name="HTTP_X_FORWARDED_PROTO" value="https" />
+                        <set name="HTTP_X_FORWARDED_PORT" value="443" />
+                        <set name="HTTP_X_FORWARDED_HOST" value="trieuphu.biz" />
+                    </serverVariables>
+                </rule>
+
+		  </rules>
+
+		  <outboundRules rewriteBeforeCache="true">
+			<rule name="RestoreAcceptEncoding" preCondition="NeedsRestoringAcceptEncoding">
+			  <match serverVariable="HTTP_ACCEPT_ENCODING" pattern="^(.*)" />
+			  <action type="Rewrite" value="{HTTP_X_ORIGINAL_ACCEPT_ENCODING}" />
+			</rule>
+		 <rule name="ReverseProxyOutboundRule1" preCondition="ResponseIsHtml1">
+                    <match filterByTags="A, Form, Img" pattern="^http(s)?://localhost:81/(.*)" />
+                    <action type="Rewrite" value="http{R:1}://trieuphu.biz/{R:2}" />
+            </rule>
+			<preConditions>
+			  <preCondition name="NeedsRestoringAcceptEncoding">
+			<add input="{HTTP_X_ORIGINAL_ACCEPT_ENCODING}" pattern=".+" />
+			  </preCondition>
+			  <preCondition name="ResponseIsHtml1">
+                        <add input="{RESPONSE_CONTENT_TYPE}" pattern="^text/html" />
+                    </preCondition>
+			</preConditions>
+		  </outboundRules>
+		</rewrite>
+
+
+    </system.webServer>
+</configuration>
