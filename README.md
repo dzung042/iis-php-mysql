@@ -35,6 +35,8 @@ Cài đặt PHP 5.6
     Tải về và giải nén trên hệ thống, Ví dụ: C:\PHP\php56
   Truy cập vào PHP Manager và chọn Register New PHP version
   Chọn tới file php-cgi.exe trong thư mục php56 vừa giải nén
+  PHP có thể cài bằng webplatform thư mục ở trong profile 32: https://www.iis.net/downloads/microsoft/web-platform-installer
+  Cài thêm https://www.microsoft.com/en-us/download/details.aspx?id=30679# bản 32 bit
   Restart lại IIS
  #Cài đặt My SQL
 
